@@ -12,7 +12,6 @@ class Checkout extends Component {
     };
 
     componentWillMount() {
-        alert("checkout");
         const query = new URLSearchParams(this.props.location.search);
         const ingredientsObj = {};
         let price = 0;
