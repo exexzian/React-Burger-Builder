@@ -109,31 +109,22 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContiueHandler = () => {
-        this.setState({ loading: true });
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Nynga',
-                address: {
-                    street: 'Noida',
-                    pincode: '201301',
-                    country: 'India'
-                },
-                email: 'nyng@gai.com'
-            },
-            deliveryMethod: 'fastest'
+        
+        //routing thing
+        const queryParams = [];
+        for(let i in this.state.ingredients){
+            console.log(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]));
+            queryParams.push(encodeURIComponent(i) + "=" + encodeURIComponent(this.state.ingredients[i]));
+        }
 
-        };
-        axios.post('/orders.json', order)
-            .then(response => {
-                console.log(response);
-                this.setState({ loading: false, purchasing: false });
-            })
-            .catch(error => {
-                console.log(error);
-                this.setState({ loading: false, purchasing: false });
-            });
+        queryParams.push("price="+this.totalPrice);
+
+        const queryString = queryParams.join("&");
+        this.props.history.push({
+            pathname: '/checkout',
+            search: "?"+queryString
+        });
+
     }
 
 
@@ -152,6 +143,7 @@ class BurgerBuilder extends Component {
         let burger = this.state.error ? <p>Ingredients can't be loaded</p> : <Spinner />;
 
         if (this.state.ingredients) {
+            console.log("in BB " + JSON.stringify(this.state.ingredients));
             burger = (
                 <Aux>
                     <Burger ingredients={this.state.ingredients} />
