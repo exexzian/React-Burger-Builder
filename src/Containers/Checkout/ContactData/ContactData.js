@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import Button from '../../../Components/UI/Button/Button';
 import classes from './ContactData.css';
 import axios from '../../../axios-orders';
-import Spinnger from '../../../Components/UI/Spinner/Spinner';
+import Spinner from '../../../Components/UI/Spinner/Spinner';
+import Input from '../../../Components/UI/Input/Input';
 
 class ContactData extends Component {
 
-    
+
     state = {
         name: '',
-        email:'',
+        email: '',
         address: {
             street: '',
             postalCode: ''
@@ -54,20 +55,20 @@ class ContactData extends Component {
 
         let form = (
             <form>
-                    <input type="text" name="name" className={classes.Input} placeholder="Your Name" />
-                    <input type="email" name="email" className={classes.Input} placeholder="Your Email" />
-                    <input type="text" name="street" className={classes.Input} placeholder="Street" />
-                    <input type="text" name="postalCode" className={classes.Input} placeholder="Postal Code" />
-                    <Button btnType="Success" clicked={this.orderHandler}>Order</Button>
+                <Input inputtype="input" type="text" name="name" placeholder="Your Name" />
+                <Input inputtype="input" type="email" name="email" placeholder="Your Email" />
+                <Input inputtype="input" type="text" name="street" placeholder="Street" />
+                <Input inputtype="input" type="text" name="postalCode" placeholder="Postal Code" />
+                <Button btnType="Success" clicked={this.orderHandler}>Order</Button>
 
-                </form>
+            </form>
         );
-        if(this.state.loading){
-            form = <Spinnger />
+        if (this.state.loading) {
+            form = <Spinner />
         }
 
 
-        return(
+        return (
             <div className={classes.ContactData}>
                 <h4>Enter your contact details:</h4>
                 {form}
